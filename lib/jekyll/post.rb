@@ -18,7 +18,7 @@ module Jekyll
       name =~ MATCHER
     end
     
-    attr_accessor :date, :slug, :ext, :categories
+    attr_accessor :date, :slug, :ext, :categories, :tags
     attr_accessor :data, :content, :output
     
     # Initialize this Post instance.
@@ -34,6 +34,7 @@ module Jekyll
       
       self.process(name)
       self.read_yaml(base, name)
+      self.tags = self.data["tags"].sort.uniq || []
       #Removed to avoid munging of liquid tags, replaced in convertible.rb#48
       #self.transform
     end
@@ -152,7 +153,7 @@ module Jekyll
         "date" => self.date,
         "id" => self.id,
         "content" => self.content,
-        "tags" => self.data["tags"] || [] })
+        "tags" => self.tags })
     end
   end
 

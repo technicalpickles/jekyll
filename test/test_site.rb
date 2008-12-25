@@ -21,6 +21,12 @@ class TestSite < Test::Unit::TestCase
     
     assert_equal 4, @s.posts.size
   end
+
+  def test_tags
+    @s.read_posts(File.join(@s.source, '_posts'))
+
+    assert_equal ["best", "complex", "markdown"], @s.tags
+  end
   
   def test_write_posts
     clear_dest
