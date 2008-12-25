@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Foo Bar
+tags:
+- best
 ---
 
 h1. {{ page.title }}

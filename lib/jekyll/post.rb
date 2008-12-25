@@ -151,7 +151,8 @@ module Jekyll
         "url" => self.url,
         "date" => self.date,
         "id" => self.id,
-        "content" => self.content })
+        "content" => self.content,
+        "tags" => self.data["tags"] || [] })
     end
   end
 

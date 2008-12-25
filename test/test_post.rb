@@ -46,7 +46,7 @@ class TestPost < Test::Unit::TestCase
     p = Post.allocate
     p.read_yaml(File.join(File.dirname(__FILE__), *%w[source _posts]), "2008-10-18-foo-bar.textile")
     
-    assert_equal({"title" => "Foo Bar", "layout" => "default"}, p.data)
+    assert_equal({"title" => "Foo Bar", "layout" => "default", "tags" => ["best"]}, p.data)
     assert_equal "\nh1. {{ page.title }}\n\nBest *post* ever", p.content
   end
   

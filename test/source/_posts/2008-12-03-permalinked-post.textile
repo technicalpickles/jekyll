@@ -1,6 +1,8 @@
 ---
 title: Post with Permalink
 permalink: my_category/permalinked-post
+tags:
+- best
 ---
 
 h1. {{ page.title }}
