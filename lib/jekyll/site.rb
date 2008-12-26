@@ -118,7 +118,15 @@ module Jekyll
     
     # The Hash payload containing site-wide data
     #
-    # Returns {"site" => {"time" => <Time>, "posts" => [<Post>]}}
+    # Returns
+    #   {
+    #     "site" => {
+    #       "time" => <Time>,
+    #       "posts" => [<Post>], 
+    #       "categories" => [<String>],
+    #       "tags" => [<String>]
+    #     }
+    #   }
     def site_payload
       # Build the category hash map of category ( names => arrays of posts )
       # then sort each array in reverse order
@@ -128,8 +136,9 @@ module Jekyll
       
       {"site" => {
         "time" => Time.now, 
-        "posts" => self.posts.sort { |a,b| b <=> a },
-        "categories" => categories
+        "posts" => posts,
+        "categories" => categories,
+        "tags" => tags
       }}
     end
   end
