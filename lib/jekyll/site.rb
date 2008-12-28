@@ -54,17 +54,21 @@ module Jekyll
       entries = Dir.entries(base)
       entries = entries.reject { |e| File.directory?(e) }
 
+      tags_by_name = {}
       entries.each do |f|
 
         if Post.valid?(f)
           post = Post.new(base, f)
           self.posts << post
-          self.tags += post.tags
+          post.tags.each do |tag|
+            tags_by_name[tag.name] ||= tag
+            tags_by_name[tag.name].posts << post
+          end
         end
       end
       
       self.posts.sort!
-      self.tags.sort!.uniq!
+      self.tags = tags_by_name.values.sort!
     rescue Errno::ENOENT => e
       # ignore missing layout dir
     end
@@ -141,6 +145,7 @@ module Jekyll
         "tags" => tags
       }}
     end
+
   end
 
 end

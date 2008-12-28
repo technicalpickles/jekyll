@@ -22,10 +22,19 @@ class TestSite < Test::Unit::TestCase
     assert_equal 4, @s.posts.size
   end
 
-  def test_tags
+  def test_tags_name
     @s.read_posts(File.join(@s.source, '_posts'))
 
-    assert_equal ["best", "complex", "markdown"], @s.tags
+    assert_equal ["best", "complex", "markdown"], @s.tags.collect {|tag| tag.name}
+ 
+    assert_equal 2, @s.tags[0].count
+    assert_equal 1, @s.tags[1].count
+    assert_equal 1, @s.tags[2].count
+  end
+
+  def test_tags_count
+    @s.read_posts(File.join(@s.source, '_posts'))
+
   end
   
   def test_write_posts

@@ -34,7 +34,11 @@ module Jekyll
       
       self.process(name)
       self.read_yaml(base, name)
-      self.tags = self.data["tags"].sort.uniq || []
+
+      self.tags = build_tags()
+            #require 'ruby-debug'; breakpoint
+            #0
+      
       #Removed to avoid munging of liquid tags, replaced in convertible.rb#48
       #self.transform
     end
@@ -154,6 +158,18 @@ module Jekyll
         "id" => self.id,
         "content" => self.content,
         "tags" => self.tags })
+    end
+
+    protected
+
+    def build_tags
+      if self.data["tags"]
+        self.data["tags"].sort.uniq.collect do |tag|
+          Tag.new(tag)
+        end
+      else
+        []
+      end
     end
   end
 
