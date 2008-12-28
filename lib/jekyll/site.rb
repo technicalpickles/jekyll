@@ -60,9 +60,14 @@ module Jekyll
         if Post.valid?(f)
           post = Post.new(base, f)
           self.posts << post
+
           post.tags.each do |tag|
             tags_by_name[tag.name] ||= tag
             tags_by_name[tag.name].posts << post
+          end
+
+          post.tags = post.tags.collect do |tag|
+            tags_by_name[tag.name]
           end
         end
       end
