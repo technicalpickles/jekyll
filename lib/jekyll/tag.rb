@@ -18,5 +18,13 @@ module Jekyll
     def to_s()
       self.name
     end
+
+    def to_liquid()
+      {
+        'name' => self.name,
+        'posts' => self.posts,
+        'count' => self.count
+      }
+    end
   end
 end

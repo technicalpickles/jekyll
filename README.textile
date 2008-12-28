@@ -206,6 +206,20 @@ h3. Post
   post.categories
     The list of categories to which this post belongs.
 
+  post.tags
+    The list of tags for this post
+
+h3. Tag
+
+  tag.name
+    The name of the tag
+
+  tag.count
+    The number of tags 
+
+  tag.posts
+    Posts which have this tag
+
 h2. YAML Front Matter
 
 Any files that contain a YAML front matter block will be processed by Jekyll
@@ -216,6 +230,9 @@ takes the form of:
 ---
 layout: post
 title: Blogging Like a Hacker
+tags:
+- blogging
+- hacker
 ---
 </pre>
 
