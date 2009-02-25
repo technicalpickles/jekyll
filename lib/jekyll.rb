@@ -64,4 +64,6 @@ module Jekyll
     yml = YAML.load(File.read(File.join(File.dirname(__FILE__), *%w[.. VERSION.yml])))
     "#{yml[:major]}.#{yml[:minor]}.#{yml[:patch]}"
   end
+
+  BINARY = File.expand_path(File.dirname(__FILE__) + '/../bin/jekyll')
 end
