@@ -3,12 +3,22 @@ require 'rake/tasklib'
 require 'jekyll'
 	
 module Jekyll
-  # Rake tasks for generating a Jekyll site.
-  class Task < ::Rake::TaskLib
-    attr_accessor :source, :destination, :use_lsi, :use_pygments, :use_rdiscount, :permalink_type, :server, :server_port
+  # Rake tasks for generating a Jekyll site and running the server.
+  # 
+  # The attributes correspond to the command line options the jekyll command accepts.
+  #
+  # An example Rakefile would look like:
+  # 
+  #   require 'rake'
+  #   require 'jekyll/tasks'
+  # 
+  #   Jekyll::Tasks.new do |jekyll|
+  #     jekyll.rdiscount = true
+  #     jekyll.pygments = true
+  #   end
+  class Tasks < ::Rake::TaskLib
+    attr_accessor :source, :destination, :lsi, :pygments, :rdiscount, :permalink, :server, :server_port
     def initialize
-      @task_name, @desc = task_name, desc
-
       yield self if block_given?
 
       @source ||= '.'
@@ -35,11 +45,11 @@ module Jekyll
 
     def arguments_for_ruby_execution
       args = [Jekyll::BINARY]
-      args << "--lsi" if self.use_lsi
-      args << "--pygments" if self.use_lsi
-      args << "--rdiscount" if self.use_rdiscount
-      if permalink_type
-        args << "--permalink" << permalink_type
+      args << "--lsi" if self.lsi
+      args << "--pygments" if self.pygments
+      args << "--rdiscount" if self.rdiscount
+      if permalink
+        args << "--permalink" << permalink
       end
 
       args << source << destination
